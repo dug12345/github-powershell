@@ -1,0 +1,1 @@
+./Get-GitHubUsers | Select-Object | Where-Object {$_.email -eq $null} | Format-Table -AutoSize -Property fullName, email, bctLogin, gitHubLogin

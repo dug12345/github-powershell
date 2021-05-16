@@ -1,0 +1,1 @@
+.\Get-GitHubUsers.ps1 | select-object | Where-Object {$_.disabled -eq 'X'} | Format-Table -AutoSize -Property fullName, email, bctLogin, gitHubLogin
