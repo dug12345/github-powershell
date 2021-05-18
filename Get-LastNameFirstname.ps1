@@ -16,8 +16,12 @@
 .NOTES
     General notes
 #>
-
-function Get-LastNameFirstName($name) {
+function Get-LastNameFirstName {
+    param (
+        [Parameter()]
+        [string]
+        $name
+    )
 
     $fullName = $null
 

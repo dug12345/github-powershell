@@ -18,8 +18,13 @@
 .NOTES
     General notes
 #>
-function Get-UserPrincipalNameFromADWithGitHubLogin($login) {
+function Get-UserPrincipalNameFromADWithGitHubLogin() {
     
+    param (
+        [Parameter()]
+        [string]
+        $login
+    )
     $email = $null
 
     # try the GitHub login name just in case it's the same

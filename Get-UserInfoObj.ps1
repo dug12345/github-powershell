@@ -24,8 +24,13 @@
 . ./Get-LastNameFirstName.ps1
 . ./Get-UserEmailFromAD.ps1
 . ./Get-UserPrincipalNameFromADWithGitHubLogin.ps1
-function Get-UserInfoObj($userInfo)
+function Get-UserInfoObj()
 {
+    param (
+        [Parameter()]
+        [PSCustomObject]
+        $userInfo
+    )
 
     $userObj = [PSCustomObject]@{
         fullName = $null
@@ -46,14 +51,14 @@ function Get-UserInfoObj($userInfo)
     
     # get user email from AD using properly formatted name
     if ($null -eq $email) {
-        $email = Get-UserEmailFromAD($name)
+        $email = Get-UserEmailFromAD $name
     }
 
     # email still unknown???
     if ($null -eq $email) {
         # attempt to get email using the gitHubLogin name just in case
         # it's the same as the BCT LoginName
-        $email = Get-UserPrincipalNameFromADWithGitHubLogin($userInfo.login)
+        $email = Get-UserPrincipalNameFromADWithGitHubLogin $userInfo.login
     }
 
     $adObj = $null

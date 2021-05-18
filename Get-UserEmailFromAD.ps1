@@ -12,7 +12,13 @@
 .NOTES
     UserPrincipalName is in the format of firstname.lastname@terumobct.com
 #>
-function Get-UserEmailFromAD($name) {
+function Get-UserEmailFromAD() {
+
+    param (
+        [Parameter()]
+        [string]
+        $name
+    )
     
     $email = $null
 
