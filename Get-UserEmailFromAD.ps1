@@ -1,10 +1,19 @@
-function Get-UserEmailFromAD {
-    [CmdletBinding()]
-    param (
-        [String]
-        $name
-    )
-
+<#
+.SYNOPSIS
+    Retrieves the user's UserPrincipalName entry from AD using the user name as lookup
+.DESCRIPTION
+    The user name must be in the form FirstName<space>LastName
+.EXAMPLE
+    PS C:\> .\Get-UserEmailFromAD 'Mickey Mouse'
+.INPUTS
+    String: FirstName<space>LastName
+.OUTPUTS
+    Mickey's email: firstname.lastname@terumobct.com
+.NOTES
+    UserPrincipalName is in the format of firstname.lastname@terumobct.com
+#>
+function Get-UserEmailFromAD($name) {
+    
     $email = $null
 
     if ($name)
@@ -13,9 +22,10 @@ function Get-UserEmailFromAD {
         if ($adObject)
         {
             $email = $adObject.UserPrincipalName
-            #$name = $adObject.Name
         }
     }
 
     return $email
 }
+
+#Get-UserEmailFromAD $name
