@@ -1,16 +1,21 @@
 
 <#
 .SYNOPSIS
-    Short description
+    Generates a list of github users by team
 .DESCRIPTION
-    Long description
+    
 .EXAMPLE
-    PS C:\> <example usage>
-    Explanation of what the example does
+    PS C:\> $PSScriptRoot/Get-TeamMembers.ps1
+    
+    Use the wrapper script Get-GitHubTeamMembers.ps1 instead of invoking this script directly
 .INPUTS
     Inputs (if any)
 .OUTPUTS
-    Output (if any)
+    $teamMemberObject = [PSCustomObject]@{
+            teamname
+            gitHubLoginName
+            fullname
+            email
 .NOTES
     General notes
 #>

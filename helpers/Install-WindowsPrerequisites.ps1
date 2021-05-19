@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Short description
+    Installs Windows features and PowerShellForGitHub module
 .DESCRIPTION
     Long description
 .EXAMPLE
