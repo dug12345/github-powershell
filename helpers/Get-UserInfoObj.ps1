@@ -10,7 +10,7 @@
     object from Get-GitHubOrganizationMember (Get-GitHubUsers)
 .OUTPUTS
     $userObj = [PSCustomObject]@{
-        fullName
+        fullName 
         email
         bctLogin
         gitHubLogin
@@ -47,7 +47,9 @@ function Get-UserInfoObj()
     }
 
     $name = $null
-    $name = Get-LastNameFirstName $userInfo.name 
+    # userInfo.name: FirstName<space>LastName
+    # $name: LastName<comma><space>FirstName
+    $name = Get-LastNameFirstName $userInfo.name
     
     # get user email from AD using properly formatted name
     if ($null -eq $email) {
