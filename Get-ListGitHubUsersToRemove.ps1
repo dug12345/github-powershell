@@ -14,7 +14,7 @@
 .NOTES
     General notes
 #>
-$usersToRemove = .\Get-GitHubUsers.ps1  | select-object | Where-Object {$_.disabled -eq 'X'}
+$usersToRemove = .\helpers\Get-GitHubUsers.ps1  | select-object | Where-Object {$_.disabled -eq 'X'}
 
 if ($usersToRemove)
 {
