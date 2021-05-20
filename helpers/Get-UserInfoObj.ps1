@@ -22,6 +22,7 @@
 
 # dot source scripts to use
 . "$PSScriptRoot\Get-LastNameFirstName.ps1"
+. "$PSScriptRoot\Get-FirstNameLastName.ps1"
 . "$PSScriptRoot\Get-UserEmailFromAD.ps1"
 . "$PSScriptRoot\Get-UserPrincipalNameFromADWithGitHubLogin.ps1"
 function Get-UserInfoObj()
@@ -42,6 +43,7 @@ function Get-UserInfoObj()
 
     # did user enter email in GitHub profile?
     $email = $null
+    # commented 3:53PM
     if ($userInfo.email) {
         $email = $userInfo.email
     }
@@ -53,7 +55,32 @@ function Get-UserInfoObj()
     
     # get user email from AD using properly formatted name
     if ($null -eq $email) {
-        $email = Get-UserEmailFromAD $name
+         $email = Get-UserEmailFromAD $name
+    }
+
+    # Note:
+    #   In AD the UserPrincipalName attribute is the same as the user's email.
+    #
+    # since email is still unknown, build the userprincipalname (which is the same as the email)
+    # from the user's name in GithHub.  Use that to build the userprincipalname and then
+    # query AD using it
+    if ($null -eq $email) {
+        $formalName = Get-FirstNameLastName $userInfo.name
+
+        if ($formalName.Count -eq 2) {
+            #build the email
+            $principalName = $formalName[0] + '.' + $formalName[1] + '@terumobct.com'
+            $adObj = $null
+            $adObj = Get-ADuser -Filter "UserPrincipalName -eq '$principalName'"
+            if ($adObj) {
+                $email = $adObj.UserPrincipalName
+                $name = $adObj.Name
+                if ($adObj.Enabled -eq $false) {
+                    $disabled = 'X'
+                }
+                $bctLogin = $adObj.SamAccountName
+            }
+        }
     }
 
     # email still unknown???
