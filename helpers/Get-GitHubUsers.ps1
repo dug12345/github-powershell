@@ -55,7 +55,7 @@ foreach($member in $organizationMembers)
 {
     # display progress bar
     $memberNum += 1
-    Write-Progress -Activity "Getting list of GitHub TBCTSystems users to remove" -Status "Progress:" -PercentComplete ($memberNum/$organizationMembers.Count * 100)
+    Write-Progress -Activity "Getting list of GitHub TBCTSystems users" -Status "Progress:" -PercentComplete ($memberNum/$organizationMembers.Count * 100)
    
     $userInfo = $null
     $userInfo = Get-GitHubUser -Username $member.UserName
