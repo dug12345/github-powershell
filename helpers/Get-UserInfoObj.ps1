@@ -43,7 +43,6 @@ function Get-UserInfoObj()
 
     # did user enter email in GitHub profile?
     $email = $null
-    # commented 3:53PM
     if ($userInfo.email) {
         $email = $userInfo.email
     }
