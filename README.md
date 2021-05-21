@@ -34,6 +34,14 @@ Unit test modules are in tests folder.
 
 To run a pester test:
 
+    cd to tests/ folder
+
     Pester tests can be identified with "Tests" as part of the filename
 
     Invoke-Pester ./<filename>.Tests.ps1
+    
+To run all pester tests:
+
+    cd to tests/ folder
+    
+    Invoke-Pester *
