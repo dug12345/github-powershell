@@ -27,3 +27,13 @@ Install steps:
       This will install the GitHubPowerShell module and enable the RSAT-AD-Tools windows feature (if needed)
   
       Displays list of GitHub users in TBCTSystems organization whose AD entry has been disabled
+
+Unit Tests using Pester
+
+Unit test modules are in tests folder.
+
+To run a pester test:
+
+    Pester tests can be identified with "Tests" as part of the filename
+
+    Invoke-Pester ./<filename>.Tests.ps1
