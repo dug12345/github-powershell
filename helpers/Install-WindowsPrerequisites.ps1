@@ -28,8 +28,8 @@ function Install-WindowPrerequisites()
 
     # Windows Feature Remote Server Administration Tool for Active Directory Module for PowerShell
     # must be enabled
-    $rsat = Get-WindowsFeature -Name 'RSAT-AD-Powershell'
-    if ($null -eq $rsat)
+    $rsat = Get-WindowsFeature -Name 'RSAT-AD-Powershell' | Select-Object -Property InstallState
+    if ($rsat.InstallState -eq 'Available')
     {
         Install-WindowsFeature RSAT-AD-Powershell
         Install-WindowsFeature RSAT-Role-Tools
