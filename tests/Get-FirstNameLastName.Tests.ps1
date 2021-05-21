@@ -1,11 +1,10 @@
 <#
 .SYNOPSIS
-    Short description
+    Pester test
 .DESCRIPTION
-    Long description
+    Tests scenarios for extracting FirstName LastName as an string array
 .EXAMPLE
-    PS C:\> <example usage>
-    Explanation of what the example does
+    PS C:\> ./Get-FirstNameLastName.ps1
 .INPUTS
     Inputs (if any)
 .OUTPUTS
