@@ -1,5 +1,6 @@
 # github-powershell
 
+Set GitHub authenticaion (required by PowerShellForGitHub module)
 Configuration
 To avoid severe API rate limiting by GitHub, you should configure the module with your own personal access token.
 
@@ -9,4 +10,11 @@ For automated scenarios (like GithHub Actions) where you are dynamically getting
 
 Alternatively, you could configure PowerShell itself to always pass in a plain-text access token to any command (by setting $PSDefaultParameterValues["*-GitHub*:AccessToken"] = "<access token>"), although keep in mind that this is insecure (any other process could access this plain-text value).
   
+Required OS: Windows Server (tested on Windows Server 2019)
 Install PowerShell 7
+
+Clone repo
+
+./Get-ListGitHubUsersToRemove.ps1
+
+  This will install the GitHubPowerShell module and enable the RSAT-AD-Tools windows feature (if needed)
