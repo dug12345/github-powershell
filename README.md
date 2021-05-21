@@ -8,3 +8,5 @@ Call Set-GitHubAuthentication, enter anything as the username (the username is i
 For automated scenarios (like GithHub Actions) where you are dynamically getting the access token needed for authentication, refer to Example 2 in Get-Help Set-GitHubAuthentication -Examples for how to configure in a promptless fashion.
 
 Alternatively, you could configure PowerShell itself to always pass in a plain-text access token to any command (by setting $PSDefaultParameterValues["*-GitHub*:AccessToken"] = "<access token>"), although keep in mind that this is insecure (any other process could access this plain-text value).
+  
+Install PowerShell 7
