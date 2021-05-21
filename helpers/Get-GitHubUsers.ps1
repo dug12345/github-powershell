@@ -42,10 +42,10 @@ Install-WindowPrerequisites
 $organization = 'TBCTSystems'
 $userList = New-Object -TypeName "System.Collections.ArrayList"
 
-$organizationMembers = Get-GitHubOrganizationMember -Organization $organization
-
 # disable github telemetry for "faster" processing
 Set-GitHubConfiguration -DisableTelemetry
+
+$organizationMembers = Get-GitHubOrganizationMember -Organization $organization
 
 # dot source script to use
 . "$PSScriptRoot\Get-UserInfoObj.ps1"
