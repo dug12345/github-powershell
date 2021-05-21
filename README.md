@@ -6,7 +6,8 @@ Required OS: Windows Server (tested on Windows Server 2019)
 
 Install steps:
 
-1. Set GitHub authenticaion (required by PowerShellForGitHub module)
+1. Install-Module PowerShellForGitHub
+2. Set GitHub authenticaion (required by PowerShellForGitHub module)
 
     Configuration
     To avoid severe API rate limiting by GitHub, you should configure the module with your own personal access token.
@@ -15,11 +16,11 @@ Install steps:
     Call Set-GitHubAuthentication, enter anything as the username (the username is ignored but required by the dialog that pops up), and paste in the API token as the password.  
     That will be securely cached to disk and will persist across all future PowerShell sessions. If you ever wish to clear it in the future, just call Clear-GitHubAuthentication).
 
-2. Install PowerShell 7
+3. Install PowerShell 7
 
-3. Clone repo
+4. Clone repo
 
-4. To display GitHub users whose AD entry has been disabled allowing return of GitHub license
+5. To display GitHub users whose AD entry has been disabled allowing return of GitHub license
 
       ./Get-ListGitHubUsersToRemove.ps1
 
