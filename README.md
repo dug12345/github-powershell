@@ -6,7 +6,7 @@ Required OS: Windows Server (tested on Windows Server 2019)
 
 Install steps:
 
-1. Install-Module PowerShellForGitHub
+1. Get & install module:  Install-Module PowerShellForGitHub
 2. Set GitHub authenticaion (required by PowerShellForGitHub module)
 
     Configuration
