@@ -16,11 +16,14 @@
 function Install-WindowPrerequisites()
 {
     # PowerShellForGitHub must be installed. Check for it and install if needed
-    $psForGitHub = Get-Module -Name PowerShellForGitHub
-    if ($null -eq $psForGitHub)
-    {
-        # install it
-        Install-Module -Name PowerShellForGitHub
+    # $psForGitHub = Get-Module -Name PowerShellForGitHub
+    # if ($null -eq $psForGitHub)
+    # {
+    #     # install it
+    #     Install-Module -Name PowerShellForGitHub
+    # }
+    if (-not(Get-InstalledModule PowerShellForGitHub -ErrorAction SilentlyContinue)) {
+        Install-Module PowerShellForGitHub -Confirm:$False -Force
     }
 
     # Windows Feature Remote Server Administration Tool for Active Directory Module for PowerShell
