@@ -23,3 +23,5 @@ Clone repo
 ./Get-ListGitHubUsersToRemove.ps1
 
   This will install the GitHubPowerShell module and enable the RSAT-AD-Tools windows feature (if needed)
+  
+  Displays list of GitHub users in TBCTSystems organization whose AD entry has been disabled
