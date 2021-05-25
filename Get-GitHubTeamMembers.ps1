@@ -19,4 +19,4 @@ Write-Output $time
 
 .\helpers\Get-TeamMembers.ps1 | Select-Object | Export-Csv -NoTypeInformation -Path ./GitHubTeamMembers.csv
 
-Write-Output($stopwatch.elapsed.totalminutes)
+Write-Output(($stopwatch.elapsed.totalminutes).ToString() + ' minutes')
