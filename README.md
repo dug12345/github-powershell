@@ -27,6 +27,18 @@ Install steps:
       This will install the GitHubPowerShell module and enable the RSAT-AD-Tools windows feature (if needed)
   
       Displays list of GitHub users in TBCTSystems organization whose AD entry has been disabled
+      
+6. To generate a CSV list of all GitHub members
+      
+     ./Get-AllGitHubHusers.ps1
+     
+     The generated list will be in GitHubUsers.csv
+     
+7. To generate a CSV list of all GitHub members sorted by team
+     
+     ./Get-GitHubTeamMembers.ps1
+     
+     The generated list will be in GitHubTeamMembers.csv
 
 Unit Tests using Pester
 
