@@ -10,6 +10,8 @@
 .INPUTS
     none
 .OUTPUTS
+    GitHubUser.csv
+    
     CSV file with the following columns:
     FullName    Email   bctLogin    gitHubLogin disabled
 

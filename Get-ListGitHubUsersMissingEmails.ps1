@@ -1,1 +1,1 @@
-./helpers/Get-GitHubUsers | Select-Object | Where-Object {$_.email -eq $null} | Format-Table -AutoSize -Property fullName, email, bctLogin, gitHubLogin
+./helpers/Get-GitHubUsers | Select-Object | Where-Object {$_.email -eq $null} | Select-Object -Property fullName, githubLogin, bctLogin | export-csv -NoTypeInformation UsersMissingEmail.csv

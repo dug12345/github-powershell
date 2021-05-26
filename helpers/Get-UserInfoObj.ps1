@@ -25,6 +25,7 @@
 . "$PSScriptRoot\Get-FirstNameLastName.ps1"
 . "$PSScriptRoot\Get-UserEmailFromAD.ps1"
 . "$PSScriptRoot\Get-UserPrincipalNameFromADWithGitHubLogin.ps1"
+. "$PSScriptRoot\Build-UserObj"
 function Get-UserInfoObj()
 {
     param (
@@ -45,9 +46,50 @@ function Get-UserInfoObj()
     $email = $null
     if ($userInfo.email) {
         $email = $userInfo.email
+
+        $adObj = @()
+        $adObj = Get-ADUser -Filter "UserPrincipalName -eq '$email'"
+        if ($adObj) {
+
+            # if a user has 2 AD entries...
+            if ($adObj.Length -gt 1) {
+                # ...just take the first one
+                $adObj = $adObj[0]
+            }
+            $userObj = Build-UserObj $adObj
+
+            return $userObj              
+        }
     }
 
+    # ok...try to get the AD entry by using the username
+    if ($userInfo.name) {
+        $formalName = Get-FirstNameLastName $userInfo.name
+        if ($formalName.Count -eq 2) {
+            $Surname = $formalName[1]
+            $Given = $formalName[0]
+            $adObj = @()
+            $adObj = Get-ADuser -Filter "(GivenName -eq '$Given') -and (Surname -eq '$Surname')"
+            if ($adObj) {
+
+                if ($adObj.Length -gt 1) {
+                    $adObj = $adObj[0]
+                }
+
+                $userObj = Build-UserObj $adObj
+                return $userObj
+            }
+        }
+    }
+
+    # here when the email and username was unsuccessful in retrieving
+    # the AD entry for this user
+
+    # To get the AD entry for this user:
+    # 1. try to build the email from the user name and then access AD with that
+    # 2. try to get the AD entry using the gitHubLogin...
     $name = $null
+
     # userInfo.name: FirstName<space>LastName
     # $name: LastName<comma><space>FirstName
     $name = Get-LastNameFirstName $userInfo.name
@@ -65,43 +107,47 @@ function Get-UserInfoObj()
     # query AD using it
     if ($null -eq $email) {
         $formalName = Get-FirstNameLastName $userInfo.name
-
         if ($formalName.Count -eq 2) {
-            #build the email
-            $principalName = $formalName[0] + '.' + $formalName[1] + '@terumobct.com'
-            $adObj = $null
-            $adObj = Get-ADuser -Filter "UserPrincipalName -eq '$principalName'"
+            $Surname = $formalName[1]
+            $Given = $formalName[0]
+            $adObj = @()
+            $adObj = Get-ADuser -Filter "(GivenName -eq '$Given') -and (Surname -eq '$Surname')"
             if ($adObj) {
-                $email = $adObj.UserPrincipalName
-                $name = $adObj.Name
-                if ($adObj.Enabled -eq $false) {
-                    $disabled = 'X'
+
+                if ($adObj.Length -gt 1) {
+                    $adObj = $adObj[0]
                 }
-                $bctLogin = $adObj.SamAccountName
+
+                $userObj = Build-UserObj $adObj
+
+                return $userObj
             }
         }
     }
 
     # email still unknown???
+    # 2. try to get the AD entry using the gitHubLogin...
     if ($null -eq $email) {
         # attempt to get email using the gitHubLogin name just in case
         # it's the same as the BCT LoginName
         $email = Get-UserPrincipalNameFromADWithGitHubLogin $userInfo.login
-    }
+        if ($email) {
+            $adObj = @()
+            $adObj = Get-ADUser -Filter "UserPrincipalName -eq '$email'"
+            if ($adObj) {
 
-    $adObj = $null
-    $bctLogin = $null
-    $disabled = $null
+                if ($adObj.Length -gt 1) {
+                    $adObj = $adObj[0]
+                }
 
-    # use email to get AD entry
-    if ($email) {
-        $adObj = Get-ADuser -Filter "UserPrincipalName -eq '$email'"
-        if ($adObj.Enabled -eq $false) {
-            $disabled = 'X'
+                $userObj = Build-UserObj $adObj
+
+                return $userObj              
+            }         
         }
-        $bctLogin = $adObj.SamAccountName
     }
 
+    # at this point, just return whatever information I have
     $userObj.gitHubLogin = $userInfo.login
     $userObj.fullName = $name
     $userObj.email = $email

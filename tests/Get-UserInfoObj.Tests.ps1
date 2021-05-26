@@ -43,7 +43,7 @@ Describe 'userInfoObj tests' {
             $userInfoObj = Get-UserInfoObj $userInfo
         }
         It 'userInfoObj should contain valid info for devopsrvc' {
-            $userInfoObj.fullName | Should -BeNullOrEmpty
+            $userInfoObj.fullName | Should -Be 'devopsrvc'
             $userInfoObj.bctLogin | Should -Be 'devopsrvc'
             $userInfoObj.gitHubLogin | Should -Be 'devopsrvc'
             $userInfoObj.email | Should -Be 'devopsrvc@terumobct.com'
