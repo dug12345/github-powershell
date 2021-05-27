@@ -25,19 +25,19 @@ Required OS: Windows Server (tested on Windows Server 2019)
 
 5. To display GitHub users whose AD entry has been disabled allowing return of GitHub license
 
-      ./Show-GitHubUsersToRemove.ps1
+      ./Show-UsersToRemove.ps1
   
       Displays on the console a list of GitHub users in TBCTSystems organization whose AD entry has been disabled
       
 6. To generate a CSV list of all GitHub members
       
-     ./Export-AllGitHubHusers.ps1
+     ./Export-Users.ps1
      
      The generated list will be in GitHubUsers.csv
      
 7. To generate a CSV list of all GitHub members sorted by team
      
-     ./Export-GitHubTeamMembers.ps1
+     ./Export-TeamMembers.ps1
      
      The generated list will be in GitHubTeamMembers.csv
 
