@@ -56,11 +56,10 @@ foreach($team in $teams)
         $userInfo = $null
 
         # has this member info been retrieved before
-        if ($memberHashMap[$member.UserName])
-        {
-            $userInfo = $memberHashMap[$member.UserName]
-        }
-        else {
+        $userInfo = $memberHashMap[$member.UserName]
+        if ($null -eq $userInfo)
+        {   
+            # user is not in hashmap. Get info and then
             $userInfo = Get-GitHubUser -UserName $member.UserName
 
             # add it to the hash map

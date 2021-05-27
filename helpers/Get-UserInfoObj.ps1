@@ -51,13 +51,14 @@ function Get-UserInfoObj()
         $adObj = Get-ADUser -Filter "UserPrincipalName -eq '$email'"
         if ($adObj) {
 
-            # if a user has 2 AD entries...
+            # if a user has 2 AD entries (i.e. regular & privileged)...
             if ($adObj.Length -gt 1) {
                 # ...just take the first one
                 $adObj = $adObj[0]
             }
             $userObj = Build-UserObj $adObj
 
+            # all done...no need to continue
             return $userObj              
         }
     }
@@ -88,16 +89,6 @@ function Get-UserInfoObj()
     # To get the AD entry for this user:
     # 1. try to build the email from the user name and then access AD with that
     # 2. try to get the AD entry using the gitHubLogin...
-    $name = $null
-
-    # userInfo.name: FirstName<space>LastName
-    # $name: LastName<comma><space>FirstName
-    $name = Get-LastNameFirstName $userInfo.name
-    
-    # get user email from AD using properly formatted name
-    if ($null -eq $email) {
-         $email = Get-UserEmailFromAD $name
-    }
 
     # Note:
     #   In AD the UserPrincipalName attribute is the same as the user's email.
@@ -148,6 +139,18 @@ function Get-UserInfoObj()
     }
 
     # at this point, just return whatever information I have
+
+    $name = $null
+
+    # userInfo.name: FirstName<space>LastName
+    # $name: LastName<comma><space>FirstName
+    $name = Get-LastNameFirstName $userInfo.name
+    
+    # get user email from AD using properly formatted name
+    if ($null -eq $email) {
+         $email = Get-UserEmailFromAD $name
+    }
+
     $userObj.gitHubLogin = $userInfo.login
     $userObj.fullName = $name
     $userObj.email = $email
