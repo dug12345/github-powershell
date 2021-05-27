@@ -17,7 +17,7 @@ Required OS: Windows Server (tested on Windows Server 2019)
     To avoid severe API rate limiting by GitHub, you should configure the module with your own personal access token.
 
     Create a new API token by going to https://github.com/settings/tokens/new (provide a description and check any appropriate scopes)
-    
+
     Call Set-GitHubAuthentication, enter anything as the username (the username is ignored but required by the dialog that pops up), and paste in the API token as the password.  
     That will be securely cached to disk and will persist across all future PowerShell sessions. If you ever wish to clear it in the future, just call Clear-GitHubAuthentication).
 
@@ -25,21 +25,19 @@ Required OS: Windows Server (tested on Windows Server 2019)
 
 5. To display GitHub users whose AD entry has been disabled allowing return of GitHub license
 
-      ./Get-ListGitHubUsersToRemove.ps1
-
-      This will install the GitHubPowerShell module and enable the RSAT-AD-Tools windows feature (if needed)
+      ./Show-GitHubUsersToRemove.ps1
   
-      Displays list of GitHub users in TBCTSystems organization whose AD entry has been disabled
+      Displays on the console a list of GitHub users in TBCTSystems organization whose AD entry has been disabled
       
 6. To generate a CSV list of all GitHub members
       
-     ./Get-AllGitHubHusers.ps1
+     ./Export-AllGitHubHusers.ps1
      
      The generated list will be in GitHubUsers.csv
      
 7. To generate a CSV list of all GitHub members sorted by team
      
-     ./Get-GitHubTeamMembers.ps1
+     ./Export-GitHubTeamMembers.ps1
      
      The generated list will be in GitHubTeamMembers.csv
 
