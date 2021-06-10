@@ -4,8 +4,7 @@
 .DESCRIPTION
     Long description
 .EXAMPLE
-    PS C:\> <example usage>
-    Explanation of what the example does
+    invoked as a function
 .INPUTS
     [PSCustomObject] : users to be removed
 

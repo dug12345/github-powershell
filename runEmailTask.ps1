@@ -1,15 +1,18 @@
 <#
 .SYNOPSIS
-    Short description
+    "Main" entry point
+    1. generate a collection of PSCustomObject users in TBCTSystems
+    2. filters the collection to those users' AD entry that has been disabled
+    3. builds an email message containing list of those users to be removed
+    4. sends the list via email
 .DESCRIPTION
-    Long description
+    
 .EXAMPLE
-    PS C:\> <example usage>
-    Explanation of what the example does
+    PowerShell session: ./runEmailTask.ps1
 .INPUTS
-    Inputs (if any)
+    None
 .OUTPUTS
-    Output (if any)
+    None
 .NOTES
     General notes
 #>

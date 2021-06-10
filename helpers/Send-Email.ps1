@@ -1,25 +1,19 @@
 
 <#
 .SYNOPSIS
-    Short description
+    Sends the email with list of users to be removed from GitHub
 .DESCRIPTION
-    Long description
+    Accepts a collection of PSCustomObject that encapsulates the info for each
+    user to be removed
 .EXAMPLE
-    PS C:\> <example usage>
-    Explanation of what the example does
+    invoked as a function
 .INPUTS
-    Inputs (if any)
+    String: email msg containing list of users to be removed
 .OUTPUTS
     Output (if any)
 .NOTES
     General notes
 #>
-
-# source file
-#. $PSScriptRoot\helpers\Build-EmailMsg.ps1
-
-#$usersToRemove = .\helpers\Get-GitHubUsers.ps1  | select-object | Where-Object {$_.disabled -eq 'X'}
-#$emailMsg = Build-EmailMsg $usersToRemove
 
 function Send-Email {
 
