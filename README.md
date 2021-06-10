@@ -6,38 +6,38 @@ Required OS: Windows Server (tested on Windows Server 2019)
 
 ===== Install steps =====
 
-1. Install PowerShell 7 (or latest version) 
-2. Get & install module
+1. Powershell must be installed on system 
 
-    Install-Module PowerShellForGitHub
+2. Clone this repo to local folder
 
-3. Set GitHub authenticaion (required by PowerShellForGitHub module)
+3.  cd to the local folder
 
-    Configuration
-    To avoid severe API rate limiting by GitHub, you should configure the module with your own personal access token.
+4.  To generate a list of GitHub users to be removed from the TBCTSystems organization and
+    send the list in an email:
 
-    Create a new API token by going to https://github.com/settings/tokens/new (provide a description and check any appropriate scopes)
+     Note: The command examples can be run one of two ways:
+         1. in a DOS cmd window as Administrator
+         2. in a PowerShell session
 
-    Call Set-GitHubAuthentication, enter anything as the username (the username is ignored but required by the dialog that pops up), and paste in the API token as the password.  
-    That will be securely cached to disk and will persist across all future PowerShell sessions. If you ever wish to clear it in the future, just call Clear-GitHubAuthentication).
+      1: powershell.exe -executionpolicy bypass ./runEmailTask.ps1
+      2. ./runEmailTask.ps1
 
-4. Clone this repo to local folder
+5. Displays on the console a list of GitHub users in TBCTSystems organization whose AD entry has been disabled
 
-5. To display GitHub users whose AD entry has been disabled allowing return of GitHub license
-
-      ./Show-UsersToRemove.ps1
+      1: powershell.exe -executionpolicy bypass ./Show-GitHubUsersToRemove.ps1
+      2: ./Show-GitHubUsersToRemove.ps1
   
-      Displays on the console a list of GitHub users in TBCTSystems organization whose AD entry has been disabled
-      
 6. To generate a CSV list of all GitHub members
       
-     ./Export-Users.ps1
+     1: powershell.exe -executionpolicy bypass ./Export-Users.ps1
+     2: ./Export-Users.ps1
      
      The generated list will be in GitHubUsers.csv
      
 7. To generate a CSV list of all GitHub members sorted by team
      
-     ./Export-TeamMembers.ps1
+     1: powershell.exe -executionpolicy bypass ./Export-TeamMembers.ps1
+     2: ./Export-TeamMembers.ps1
      
      The generated list will be in GitHubTeamMembers.csv
 
