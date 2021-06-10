@@ -15,6 +15,14 @@
 #>
 function Install-WindowPrerequisites()
 {
+    $psForGitHub = Get-Module -Name PowerShellForGitHub
+    if ($null -eq $psForGitHub)
+    {
+        Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
+        # install it
+        Install-Module -Confirm:$False -Name PowerShellForGithub
+    }
+    
     # Windows Feature Remote Server Administration Tool for Active Directory Module for PowerShell
     # must be enabled
     $rsat = Get-WindowsFeature -Name 'RSAT-AD-Powershell' | Select-Object -Property InstallState

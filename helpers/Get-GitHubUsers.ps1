@@ -33,9 +33,13 @@
 # https://docs.microsoft.com/en-us/powershell/module/activedirectory/?view=windowsserver2019-ps
 
 . "$PSScriptRoot\Install-WindowsPrerequisites.ps1"
+. "$PSScriptRoot\Set-GitHubPAT.ps1"
+. "$PSScriptRoot\Get-UserInfoObj.ps1"
 
 # PowerShellForGitHub must be installed. Check for it and install if needed
 Install-WindowPrerequisites
+
+Set-GitHubPAT
 
 # yes...it's hardcoded but TBCTDevelopment doesn't
 # have many users.
@@ -45,10 +49,11 @@ $userList = New-Object -TypeName "System.Collections.ArrayList"
 # disable github telemetry for "faster" processing
 Set-GitHubConfiguration -DisableTelemetry
 
+# get all members in the TBCTSystems organization
 $organizationMembers = Get-GitHubOrganizationMember -Organization $organization
 
 # dot source script to use
-. "$PSScriptRoot\Get-UserInfoObj.ps1"
+#. "$PSScriptRoot\Get-UserInfoObj.ps1"
 
 $memberNum = 0
 foreach($member in $organizationMembers)
@@ -58,8 +63,11 @@ foreach($member in $organizationMembers)
     Write-Progress -Activity "Getting list of GitHub TBCTSystems users" -Status "Progress:" -PercentComplete ($memberNum/$organizationMembers.Count * 100)
    
     $userInfo = $null
+
+    # get GitHub info for each user
     $userInfo = Get-GitHubUser -Username $member.UserName
 
+    # build the UserInfo object for each user
     $userObj = Get-UserInfoObj $userInfo
     
     [void]$userList.Add($userObj)
@@ -68,5 +76,5 @@ foreach($member in $organizationMembers)
 # export to CSV
 #$userList | Select-Object | export-csv -NoTypeInformation -path ./GitHubUsers.csv
 
-
+# return list of UserInfo objects for further processing
 return $userList
