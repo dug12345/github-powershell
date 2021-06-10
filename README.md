@@ -45,6 +45,8 @@ Required OS: Windows Server (tested on Windows Server 2019)
 
 Unit test modules are in tests folder.
 
+Pester tests must be invoked from within a PowerShell session.
+
 To run a pester test:
 
     cd to tests/ folder
