@@ -4,7 +4,7 @@
 .DESCRIPTION
     Long description
 .EXAMPLE
-    invoked as a function
+    Invoked as a function
 .INPUTS
     [PSCustomObject] : users to be removed
 

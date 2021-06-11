@@ -4,8 +4,7 @@
 .DESCRIPTION
     Long description
 .EXAMPLE
-    PS C:\> <example usage>
-    Explanation of what the example does
+    PS C:\> ./Get-UserInfoObj.ps1
 .INPUTS
     object from Get-GitHubOrganizationMember (Get-GitHubUsers)
 .OUTPUTS

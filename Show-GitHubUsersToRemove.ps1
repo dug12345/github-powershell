@@ -4,13 +4,13 @@
 .DESCRIPTION
     Lists those uses whose AD entries have been disabled
 .EXAMPLE
-    PS C:\> .\Get-ListGitHubUsersToRemove.ps1
+    PS C:\> .\Show-GitHubUsersToRemove.ps1
     
     Dipslays list of users that can be removed from the TBCTSystems organization
 .INPUTS
     none
 .OUTPUTS
-    Displays uses on console
+    Displays user info on console
 .NOTES
     General notes
 #>

@@ -6,7 +6,7 @@
     Accepts a collection of PSCustomObject that encapsulates the info for each
     user to be removed
 .EXAMPLE
-    invoked as a function
+    Invoked as a function
 .INPUTS
     String: email msg containing list of users to be removed
 .OUTPUTS

@@ -4,8 +4,7 @@
 .DESCRIPTION
     Long description
 .EXAMPLE
-    PS C:\> <example usage>
-    Explanation of what the example does
+    Invoked as a function
 .INPUTS
     Inputs (if any)
 .OUTPUTS

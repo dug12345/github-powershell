@@ -5,7 +5,7 @@
     The PAT ($secureString) is set in Developer -> Settings -> Personal Access Token
     for this repo
 .EXAMPLE
-    invoked as a function
+    Invoked as a function
 .INPUTS
     None
 .OUTPUTS

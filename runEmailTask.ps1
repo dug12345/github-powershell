@@ -8,7 +8,7 @@
 .DESCRIPTION
     
 .EXAMPLE
-    PowerShell session: ./runEmailTask.ps1
+    PS C:\> ./runEmailTask.ps1
 .INPUTS
     None
 .OUTPUTS

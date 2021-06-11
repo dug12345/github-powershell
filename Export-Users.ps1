@@ -2,11 +2,11 @@
 .SYNOPSIS
     Generates a list of all github users and exports the list to GitHubUsers.csv
 .DESCRIPTION
-    This is a wrapper to GitHubUsers.ps1.
+    This is a wrapper to Get-GitHubUsers.ps1.
 
     The generated CSV file can be imported into an Excel spreadsheet and filtered accordingly
 .EXAMPLE
-    PS C:\> ./Get-AllGitHubUsers.ps1
+    PS C:\> ./Export-Users.ps1
 .INPUTS
     none
 .OUTPUTS

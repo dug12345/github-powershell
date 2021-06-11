@@ -8,8 +8,7 @@
 
     If so, then the AD lookup will be valid.
 .EXAMPLE
-    PS C:\> <example usage>
-    Explanation of what the example does
+    Invoked as a function
 .INPUTS
     GitHub login name that is hopefully the same as the BCT login
 .OUTPUTS

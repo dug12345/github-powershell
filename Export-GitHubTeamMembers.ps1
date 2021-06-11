@@ -4,8 +4,7 @@
 .DESCRIPTION
     Generates a csv file of github users by team
 .EXAMPLE
-    PS C:\> $PSScriptRoot/Get-GitHubTeamMembers.ps1
-    Explanation of what the example does
+    PS C:\> $PSScriptRoot/Export-GitHubTeamMembers.ps1
 .INPUTS
     Inputs (if any)
 .OUTPUTS

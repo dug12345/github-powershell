@@ -4,7 +4,7 @@
 .DESCRIPTION
     Long description
 .EXAMPLE
-    Can only invoked as a function
+    Invoked as a function
 .INPUTS
     $adObj: AD info object
 .OUTPUTS
