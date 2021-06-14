@@ -62,19 +62,13 @@ function Get-UserInfoObj()
 
     # ok...try to get the AD entry by using the name from GitHub profile
 
-    # here when the email and username was unsuccessful in retrieving
-    # the AD entry for this user
-
     # To get the AD entry for this user:
-    # 1. try to build the email from the user name in GitHub profile and then access AD with that
+    # 1. try to retrieve the AD entry using the user's name from the GitHub project
+    #     
     # 2. try to get the AD entry using the gitHubLogin...
 
     # Note:
     #   In AD the UserPrincipalName attribute is the same as the user's email.
-    #
-    # since email is still unknown, build the userprincipalname (which is the same as the email)
-    # from the user's name in GithHub.  Use that to build the userprincipalname and then
-    # query AD using it
     if ($userInfo.name) {
         $formalName = Get-FirstNameLastName $userInfo.name
         if ($formalName.Count -eq 2) {
@@ -99,20 +93,6 @@ function Get-UserInfoObj()
     # still no AD info???
     # 2. try to get the AD entry using the gitHubLogin...
 
-    # attempt to get email using the gitHubLogin name just in case
-    # it's the same as the BCT LoginName
-    # $upn = Get-UserPrincipalNameFromADWithGitHubLogin $userInfo.login
-    # if ($upn) {
-
-    #     $adObj = Get-ADUser -Filter "UserPrincipalName -eq '$upn'"
-    #     if ($adObj) {
-
-    #         $userObj = Build-UserObj $adObj
-
-    #         return $userObj              
-    #     }         
-    # }
-
     $adObj = Get-ADObjWithGitHubLogin $userInfo.login
     if ($adObj) {
         $userObj = Build-UserObj $adObj
@@ -135,8 +115,8 @@ function Get-UserInfoObj()
     $userObj.gitHubLogin = $userInfo.login
     $userObj.fullName = $name
     $userObj.email = $email
-    $userObj.bctLogin = $bctLogin
-    $userObj.disabled = $disabled
+    $userObj.bctLogin = $null
+    $userObj.disabled = $null
 
     return $userObj
 }
