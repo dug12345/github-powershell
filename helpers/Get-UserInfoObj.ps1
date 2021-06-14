@@ -46,15 +46,12 @@ function Get-UserInfoObj()
     if ($userInfo.email) {
         $email = $userInfo.email
 
-        $adObj = @()
         $adObj = Get-ADUser -Filter "UserPrincipalName -eq '$email'"
         if ($adObj) {
 
-            # if a user has 2 AD entries (i.e. regular & privileged)...
-            if ($adObj.Length -gt 1) {
-                # ...just take the first one
-                $adObj = $adObj[0]
-            }
+            # there is a 1to1 mapping between UPN & AD entry...that is
+            # no 2 AD entries can have the same UPN unlike
+            # using the GivenName & Surname (see below)
             $userObj = Build-UserObj $adObj
 
             # all done...no need to continue
@@ -62,7 +59,21 @@ function Get-UserInfoObj()
         }
     }
 
-    # ok...try to get the AD entry by using the username
+    # ok...try to get the AD entry by using the name from GitHub profile
+
+    # here when the email and username was unsuccessful in retrieving
+    # the AD entry for this user
+
+    # To get the AD entry for this user:
+    # 1. try to build the email from the user name in GitHub profile and then access AD with that
+    # 2. try to get the AD entry using the gitHubLogin...
+
+    # Note:
+    #   In AD the UserPrincipalName attribute is the same as the user's email.
+    #
+    # since email is still unknown, build the userprincipalname (which is the same as the email)
+    # from the user's name in GithHub.  Use that to build the userprincipalname and then
+    # query AD using it
     if ($userInfo.name) {
         $formalName = Get-FirstNameLastName $userInfo.name
         if ($formalName.Count -eq 2) {
@@ -72,6 +83,8 @@ function Get-UserInfoObj()
             $adObj = Get-ADuser -Filter "(GivenName -eq '$Given') -and (Surname -eq '$Surname')"
             if ($adObj) {
 
+                # GivenName & Surname can be associated with 2 AD entries: "normal" & privileged
+                # check for that
                 if ($adObj.Length -gt 1) {
                     $adObj = $adObj[0]
                 }
@@ -82,59 +95,21 @@ function Get-UserInfoObj()
         }
     }
 
-    # here when the email and username was unsuccessful in retrieving
-    # the AD entry for this user
-
-    # To get the AD entry for this user:
-    # 1. try to build the email from the user name and then access AD with that
+    # still no AD info???
     # 2. try to get the AD entry using the gitHubLogin...
+    
+    # attempt to get email using the gitHubLogin name just in case
+    # it's the same as the BCT LoginName
+    $upn = Get-UserPrincipalNameFromADWithGitHubLogin $userInfo.login
+    if ($upn) {
 
-    # Note:
-    #   In AD the UserPrincipalName attribute is the same as the user's email.
-    #
-    # since email is still unknown, build the userprincipalname (which is the same as the email)
-    # from the user's name in GithHub.  Use that to build the userprincipalname and then
-    # query AD using it
-    if ($null -eq $email) {
-        $formalName = Get-FirstNameLastName $userInfo.name
-        if ($formalName.Count -eq 2) {
-            $Surname = $formalName[1]
-            $Given = $formalName[0]
-            $adObj = @()
-            $adObj = Get-ADuser -Filter "(GivenName -eq '$Given') -and (Surname -eq '$Surname')"
-            if ($adObj) {
+        $adObj = Get-ADUser -Filter "UserPrincipalName -eq '$upn'"
+        if ($adObj) {
 
-                if ($adObj.Length -gt 1) {
-                    $adObj = $adObj[0]
-                }
+            $userObj = Build-UserObj $adObj
 
-                $userObj = Build-UserObj $adObj
-
-                return $userObj
-            }
-        }
-    }
-
-    # email still unknown???
-    # 2. try to get the AD entry using the gitHubLogin...
-    if ($null -eq $email) {
-        # attempt to get email using the gitHubLogin name just in case
-        # it's the same as the BCT LoginName
-        $email = Get-UserPrincipalNameFromADWithGitHubLogin $userInfo.login
-        if ($email) {
-            $adObj = @()
-            $adObj = Get-ADUser -Filter "UserPrincipalName -eq '$email'"
-            if ($adObj) {
-
-                if ($adObj.Length -gt 1) {
-                    $adObj = $adObj[0]
-                }
-
-                $userObj = Build-UserObj $adObj
-
-                return $userObj              
-            }         
-        }
+            return $userObj              
+        }         
     }
 
     # at this point, just return whatever information I have
