@@ -25,6 +25,7 @@
 . "$PSScriptRoot\Get-UserEmailFromAD.ps1"
 . "$PSScriptRoot\Get-UserPrincipalNameFromADWithGitHubLogin.ps1"
 . "$PSScriptRoot\Build-UserObj"
+. "$PSScriptRoot\Get-ADObjWithGitHubLogin"
 function Get-UserInfoObj()
 {
     param (
@@ -97,19 +98,25 @@ function Get-UserInfoObj()
 
     # still no AD info???
     # 2. try to get the AD entry using the gitHubLogin...
-    
+
     # attempt to get email using the gitHubLogin name just in case
     # it's the same as the BCT LoginName
-    $upn = Get-UserPrincipalNameFromADWithGitHubLogin $userInfo.login
-    if ($upn) {
+    # $upn = Get-UserPrincipalNameFromADWithGitHubLogin $userInfo.login
+    # if ($upn) {
 
-        $adObj = Get-ADUser -Filter "UserPrincipalName -eq '$upn'"
-        if ($adObj) {
+    #     $adObj = Get-ADUser -Filter "UserPrincipalName -eq '$upn'"
+    #     if ($adObj) {
 
-            $userObj = Build-UserObj $adObj
+    #         $userObj = Build-UserObj $adObj
 
-            return $userObj              
-        }         
+    #         return $userObj              
+    #     }         
+    # }
+
+    $adObj = Get-ADObjWithGitHubLogin $userInfo.login
+    if ($adObj) {
+        $userObj = Build-UserObj $adObj
+        return $userObj
     }
 
     # at this point, just return whatever information I have

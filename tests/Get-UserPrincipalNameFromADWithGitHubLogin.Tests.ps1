@@ -4,8 +4,7 @@
 .DESCRIPTION
     Long description
 .EXAMPLE
-    PS C:\> <example usage>
-    Explanation of what the example does
+    PS C:\> invoke-pester ./Get-UserPrincipalNameFromADWithGitHubLogin.ps1
 .INPUTS
     Inputs (if any)
 .OUTPUTS

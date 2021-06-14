@@ -4,7 +4,7 @@
 .DESCRIPTION
     Tests scenarios for extracting FirstName LastName as an string array
 .EXAMPLE
-    PS C:\> ./Get-FirstNameLastName.ps1
+    PS C:\> invoke-pester ./Get-FirstNameLastName.Tests.ps1
 .INPUTS
     Inputs (if any)
 .OUTPUTS
