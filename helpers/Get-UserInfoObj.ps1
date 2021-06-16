@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Creates the user object that contains information on the user
+    Creates the user object that contains information on the user (see .OUTPUTS section below)
 .DESCRIPTION
     Using info from GitHub profile, this script will attempt to retrieve the user's
     AD entry using the following criteria:
