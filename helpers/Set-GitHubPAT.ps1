@@ -14,7 +14,11 @@
     General notes
 #>
 function Set-GitHubPAT {
-    $secureString = ("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" | ConvertTo-SecureString -AsPlainText -Force)
+    # dug12345
+    $secureString = ("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" | ConvertTo-SecureString -AsPlainText -Force)
+
+    # devopsrvc
+    #$secureString = ("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" | ConvertTo-SecureString -AsPlainText -Force)
     $cred = New-Object System.Management.Automation.PSCredential "username is ignored", $secureString
     Set-GitHubAuthentication -Credential $cred
     $secureString = $null # clear this out now that it's no longer needed
