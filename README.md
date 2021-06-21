@@ -6,13 +6,16 @@ Required OS: Windows Server (tested on Windows Server 2019)
 
 ===== Install steps =====
 
-1. Powershell must be installed on system 
+1. Powershell must be installed on system
 
-2. Clone this repo to local folder
+2. create a 'GithubPAT' environment variable for user (not system) and set its value
+   Note: if this is not done, set-GitHubPAT will fail.
 
-3.  cd to the local folder
+3. Clone this repo to local folder
 
-4.  To generate a list of GitHub users to be removed from the TBCTSystems organization and
+4.  cd to the local folder
+
+5.  To generate a list of GitHub users to be removed from the TBCTSystems organization and
     send the list in an email:
 
      Note: The command examples can be run one of two ways:
@@ -22,19 +25,19 @@ Required OS: Windows Server (tested on Windows Server 2019)
       1: powershell.exe -executionpolicy bypass ./runEmailTask.ps1
       2. ./runEmailTask.ps1
 
-5. Displays on the console a list of GitHub users in TBCTSystems organization whose AD entry has been disabled
+6. Displays on the console a list of GitHub users in TBCTSystems organization whose AD entry has been disabled
 
       1: powershell.exe -executionpolicy bypass ./Show-GitHubUsersToRemove.ps1
       2: ./Show-GitHubUsersToRemove.ps1
   
-6. To generate a CSV list of all GitHub members
+7. To generate a CSV list of all GitHub members
       
      1: powershell.exe -executionpolicy bypass ./Export-Users.ps1
      2: ./Export-Users.ps1
      
      The generated list will be in GitHubUsers.csv
      
-7. To generate a CSV list of all GitHub members sorted by team
+8. To generate a CSV list of all GitHub members sorted by team
      
      1: powershell.exe -executionpolicy bypass ./Export-TeamMembers.ps1
      2: ./Export-TeamMembers.ps1
