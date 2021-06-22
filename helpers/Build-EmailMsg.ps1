@@ -28,7 +28,6 @@ function Build-EmailMsg {
         $users
     )
         $usrList = $null
-        $OSF = "`r`n"
         $msg = "The following user(s) can be removed from TBCTSystems" + [System.Environment]::NewLine + "Name`t`t`t`tGitHub Login" + [System.Environment]::NewLine
         foreach($user in $users) {
             $usrList += ($user.fullName).ToString() + "`t`t" + ($user.gitHubLogin).ToString() + [System.Environment]::NewLine
