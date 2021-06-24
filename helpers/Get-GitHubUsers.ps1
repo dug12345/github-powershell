@@ -32,6 +32,8 @@
 # https://github.com/microsoft/PowerShellForGitHub
 # https://docs.microsoft.com/en-us/powershell/module/activedirectory/?view=windowsserver2019-ps
 
+#requires -RunAsAdministrator
+
 . "$PSScriptRoot\Install-WindowsPrerequisites.ps1"
 . "$PSScriptRoot\Set-GitHubPAT.ps1"
 . "$PSScriptRoot\Get-UserInfoObj.ps1"
@@ -51,9 +53,6 @@ Set-GitHubConfiguration -DisableTelemetry
 
 # get all members in the TBCTSystems organization
 $organizationMembers = Get-GitHubOrganizationMember -Organization $organization
-
-# dot source script to use
-#. "$PSScriptRoot\Get-UserInfoObj.ps1"
 
 $memberNum = 0
 foreach($member in $organizationMembers)
